@@ -1,0 +1,12 @@
+void fitsBits(){
+	int x, n;
+	scanf("%d%d", &x, &n);
+	int x2 = ~x;
+	int cur = 1 << 31;
+	cur = cur >> (32 - n - 1);
+	int cur2 = cur;
+	cur2 = cur2 & x2;
+	cur = cur & x;
+	printf("%d\n", !cur + !cur2);
+	return;
+}
