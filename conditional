@@ -1,0 +1,6 @@
+int conditional(int x, inty, int z){
+  x = !!x;
+	x = (x << 31) >> 31;
+	printf("%d", (x & y) | ( (~x) & z));
+	return 2;
+}
