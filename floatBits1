@@ -1,0 +1,19 @@
+#include<stdio.h>
+
+union bits {
+	float f;
+	long long n;
+};
+
+int main(){
+	
+	bits b;
+	
+	b.f = 1.0; // input float
+	
+	printf ("sign %d\n", (b.n & (1 << 31)) >> 31); 
+	printf ("exp %d\n", (b.n & (((1 << 31) >> 8) ^ (1 << 31))) >> 23);
+	printf ("man %d\n", (b.n  & (((1 << 31) >> 31) ^ ((1 << 31) >> 8))));
+	
+	return 0;
+}
