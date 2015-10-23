@@ -1,5 +1,4 @@
 int bitAnd (int x, int y){
-	int res = ~((~x) | (~y));
-	printf("%d", res);
-	return 2;
+	int res = ~((~x) | (~y));7
+	return res;
 }
