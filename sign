@@ -1,4 +1,4 @@
 int sign (int x){
-	printf("%d", (a >> 31) | (!!(a)));
+	printf("%d", (x >> 31) | (!!(x)));
 	return 2;
 }
