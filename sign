@@ -1,7 +1,4 @@
-void sign ()
-{	
-	int a;
-	scanf("%d", &a);
-	printf("%d", ( a >> 31 ) | ( !!(a) ) );
-	return;
+int sign (int x){
+	printf("%d", (a >> 31) | (!!(a)));
+	return 2;
 }
