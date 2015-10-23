@@ -1,5 +1,5 @@
 int bitAnd (int x, int y){
-	int z = (~((~x)|(~y)));
-	printf("%d", z);
+	int res = ~((~x) | (~y));
+	printf("%d", res);
 	return 2;
 }
