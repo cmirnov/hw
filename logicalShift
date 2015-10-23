@@ -1,11 +1,8 @@
-void logicalShift ()
-{
-	int x, n;
-	scanf("%d%d", &x, &n);
+int logicalShift (int x, int n) {
 	int cur = 1 << 31;
 	cur = ~cur;
 	cur = cur >> n;
 	x = x >> n;
-	printf("%d", x&cur);
-	return;
+	printf("%d", x & cur);
+	return 2;
 }
