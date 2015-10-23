@@ -1,8 +1,7 @@
 int logicalShift (int x, int n) {
 	int cur = 1 << 31;
 	cur = ~cur;
-	cur = cur >> n;
+	cur = cur >> (n - 1);
 	x = x >> n;
-	printf("%d", x & cur);
-	return 2;
+	return x & cur;
 }
