@@ -1,11 +1,9 @@
-void thirdBits ()
-{
+int thirdBits (){
 	int a;
 	a = 1 << 2;
 	a = a | (a << 3);
 	a = a | (a << 6);
 	a = a | (a << 12);
 	a = a | (a << 6);
-	printf("%d", a);
-	return;
+	return a;
 }
