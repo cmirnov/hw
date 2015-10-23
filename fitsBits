@@ -5,6 +5,5 @@ int fitsBits(int x, int n){
 	int cur2 = cur;
 	cur2 = cur2 & x2;
 	cur = cur & x;
-	printf("%d", !cur + !cur2);
-	return 2;
+	return (!cur + !cur2);
 }
