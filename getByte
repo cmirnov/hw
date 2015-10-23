@@ -1,13 +1,10 @@
-void getByte ()
-{
-	int a, n, cur = 255;
-	scanf("%d%d", &a, &n);
+int getByte (int x, int n){
+	int cur = 255;
 	n += n;
 	n += n;
 	n += n;
 	cur = cur << n;
-	a = a&cur;
+	a = a & cur;
 	a = a >> n;
-	printf ("%d\n", a);
-	return;
+	return a;
 }	
