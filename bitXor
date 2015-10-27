@@ -1,5 +1,4 @@
 int bitXor (int x, int y) {
-	int res = (~((x) & y)) & (~(x & (~y)));
-	printf("%d", ~res);
-	return 2;
+	int res = (~(x & y)) & (~((~x) & (~y)));
+	return res;
 }
