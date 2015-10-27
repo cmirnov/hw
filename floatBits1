@@ -9,11 +9,13 @@ int main(){
 	
 	bits b;
 	
-	b.f = 1.0; // input float
+	scanf ("%f", &b.f);
 	
-	printf ("sign %d\n", (b.n & (1 << 31)) >> 31); 
-	printf ("exp %d\n", (b.n & (((1 << 31) >> 8) ^ (1 << 31))) >> 23);
-	printf ("man %d\n", (b.n  & (((1 << 31) >> 31) ^ ((1 << 31) >> 8))));
+	int sign = (b.n & (1 << 31)) >> 31; 
+	int exp = (b.n >> 23) & 0xFF;
+	int man = (b.n  & (((1 << 31) >> 31) ^ ((1 << 31) >> 8)));
+	
+	printf("float = (-1)^%d * 1.%d * 2^(%d)", sign, man, (exp - 127));
 	
 	return 0;
 }
