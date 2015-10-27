@@ -1,4 +1,4 @@
-int conditional(int x, inty, int z){
+int conditional(int x, int y, int z){
  	x = !!x;
 	x = (x << 31) >> 31;
 	int res = (x & y) | ( (~x) & z);
