@@ -1,4 +1,4 @@
 int bitAnd (int x, int y){
-	int res = ~((~x) | (~y));7
+	int res = ~((~x) | (~y));
 	return res;
 }
