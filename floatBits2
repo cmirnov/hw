@@ -1,0 +1,31 @@
+#include<stdio.h>
+
+union fl{
+	float f;
+	int n;
+};
+
+struct{
+	
+	unsigned int sign : 1;
+	unsigned int exp : 8;
+	unsigned int man : 23;
+}bits;
+
+int main(){
+
+	
+	fl b;
+	
+	float t;
+	
+	scanf ("%f", &b.f);
+	
+	bits.sign = (b.n >> 31) & 1; 
+	bits.exp = (b.n >> 23) & 0xFF;
+	bits.man = (b.n  & (((1 << 31) >> 31) ^ ((1 << 31) >> 8)));
+	
+	printf("float = (-1)^%d * 1.%d * 2^(%d)", bits.sign, bits.man, (bits.exp - 127));
+	
+	return 0;
+}
