@@ -1,0 +1,46 @@
+
+size_t myStrlen (char * s) {
+	int size = 0;
+	while (s[size] != '\0'){
+		size++;
+	}
+	return size;
+}
+
+int strcmp (char * s1, char * s2) {
+	int i = 0;
+	while (s1[i] != '\0' && s2[i] != '\0' && s1[i] == s2[i]) {
+		i++;
+	}
+	if (s1[i] == '\0' && s2[i] == '\0') {
+		return 0;
+	}
+	if ((s1[i] == '\0' && s2[i] != '\0') || (s1[i] < s2[i])) {
+		return 1;
+	}
+	return -1;
+}
+
+void strcopy(char * buf, char * s) {
+	int i = 0;
+	while (s[i] != '\0') {
+		buf[i] = s[i];
+		i++;
+	}
+	buf[i] = s[i];
+	return;
+}
+
+void strcitt (char * first, char * second) {
+	int i = 0;
+	while (first[i] != '\0') {
+		i++;
+	}
+	int j = 0;
+	while (second[j] != '\0') {
+		first[i + j] = second[j];
+		j++;
+	}
+	first[i + j] = second[j];
+	return;
+}
