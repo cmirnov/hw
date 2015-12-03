@@ -7,6 +7,10 @@ typedef struct node {
 } node;
 
 void makering(node **head){
+	if (*head == NULL){
+		printf("impossible\n");
+		return;
+	}
 	node *t = *head;
 	while (t->next != NULL){
 		t = t->next;
@@ -17,6 +21,10 @@ void makering(node **head){
 }
 
 void checkring(node **head){
+	if (*head == NULL){
+		printf("impossible\n");
+		return;
+	}
 	node *t1, *t2;
 	t1 = *head;
 	t2 = (*head)->next;
@@ -62,7 +70,7 @@ void add(node **head, int cur){
 
 void rem(node **head, int num){
 	node *t = (*head);
-	if	(t->next == NULL){
+	if	(*head == NULL){
 		printf("Empty\n");
 		return;
 	}
