@@ -37,7 +37,7 @@ void add(node **head, int cur){
 
 void rem(node **head, int num){
 	node *t = (*head);
-	if	(t->next == NULL){
+	if	(*head == NULL){
 		printf("Empty\n");
 		return;
 	}
