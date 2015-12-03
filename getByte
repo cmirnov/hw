@@ -1,8 +1,7 @@
 int getByte (int x, int n){
 	int cur = 255;
-	n *= 8;
-	cur = cur << n;
-	x = x & cur;
+	n = n << 3;
 	x = x >> n;
+	x = x & cur;
 	return x;
 }	
