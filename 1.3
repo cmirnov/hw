@@ -2,23 +2,14 @@ void six () {
 	int n;
 	scanf("%d", &n);
 	int res = 0;
-	char s[100];
+	char s[100], cur[100];
 	int i;
 	for (i = 0; i < 2*n+2; ++i) {
 		
 		gets(s);
 		int cur = 0;
 		int size = myStrlen(s);
-		for (size; size > 0; --size){
-			cur *= 'z' - 'a' + 1;
-			cur += s[size-1] - 'a';
-		}
 		res ^= cur;	
-	}
-	i = 0; 
-	while (res > 0) {
-		s[i] = res%('z' - 'a' +1) + 'a';
-		res /=('z' - 'a' +1);
 	}
 	puts(s);
 	return;
