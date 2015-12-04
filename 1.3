@@ -7,10 +7,12 @@ void six () {
 	for (i = 0; i < 2*n+2; ++i) {
 		
 		gets(s);
-		int cur = 0;
 		int size = myStrlen(s);
-		res ^= cur;	
+		int j;
+		for (j = 0; j < size; ++j){
+			cur[size-1-j] ^= s[size-1-j];
+		}
 	}
-	puts(s);
+	puts(cur);
 	return;
 }
