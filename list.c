@@ -6,8 +6,45 @@ typedef struct node {
 	struct node *next;
 } node;
 
+void makering(node **head){
+	if (*head == NULL){
+		printf("impossible\n");
+		return;
+	}
+	node *t = *head;
+	while (t->next != NULL){
+		t = t->next;
+	}
+	t->next = *head;
+	printf("made ring\n");
+	return;
+}
+
+void checkring(node **head){
+	if (*head == NULL){
+		printf("impossible\n");
+		return;
+	}
+	node *t1, *t2;
+	t1 = *head;
+	t2 = (*head)->next;
+	while (t2->next != NULL && t2->next->next != NULL && t1 != t2){
+		t2 = t2->next->next;
+		t1 = t1->next;
+	}
+	if (t1 == t2){
+		printf("ring");
+		return;
+	}
+	printf("no ring\n");
+	return;
+}
 void add(node **head, int cur){
 	node *t = (node*)malloc(sizeof(node));
+	if (t == 0){
+		printf("run out of memory\nbye");
+		return 0;
+	}
 	t->val = cur;
 	if (*head == NULL){
 		t->next = *head;
@@ -73,6 +110,7 @@ void print(node **head) {
 
 	node *cur;
 	cur = (*head);
+	//printf ("%d\n", cur->next);
 	if (cur->next == NULL){
 		printf("%d\n", cur->val);
 		return;
@@ -86,7 +124,7 @@ void print(node **head) {
 }
 
 
-void quit(node **head){
+void clear(node **head){
 	node *t = *head;
 	while(*head != NULL){
 		*head = (*head)->next;
@@ -117,8 +155,14 @@ int main(){
 				print(&head);
 			break;
 			case 'q':
-				quit(&head);
+				clear(&head);
 				b = 1;
+			break;
+			case 'm':
+				makering(&head);
+			break;
+			case 'c':
+				checkring(&head);
 			break;
 		}
 	}
