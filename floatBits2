@@ -12,18 +12,34 @@ struct{
 	unsigned int man : 23;
 }bits;
 
-int main(){
 
+int main(){
 	
-	fl b;
+	union fl a, b;
 	
-	float t;
+	scanf("%f%f", &a.f, &b.f);
+
+	if (b.f == -1){
+		a.f = sqrt(a.f);
+	}
+	else{
+		a.f = a.f/b.f;
+	}
 	
-	scanf ("%f", &b.f);
 	
-	bits.sign = (b.n >> 31) & 1; 
-	bits.exp = (b.n >> 23) & 0xFF;
-	bits.man = (b.n  & (((1 << 31) >> 31) ^ ((1 << 31) >> 8)));
+	bits.sign = (a.n >>31) & 1; 
+	bits.exp = (a.n >> 23) & 0xFF;
+	bits.man = (a.n  & 0X7FFFFF);
+	
+	if (bits.exp == 0XFF){
+		if (bits.man == 0){
+			printf(bits.sign ? "-inf\n" : "+inf\n");
+		}
+		else{
+			printf("NaN\n");
+		}
+		return 0;
+	}
 	
 	printf("float = (-1)^%d * 1.%d * 2^(%d)", bits.sign, bits.man, (bits.exp - 127));
 	
