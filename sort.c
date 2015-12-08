@@ -3,15 +3,15 @@
 #include<time.h>
 #include<math.h>
 
-const int MAXN = 1e8, MAXVAL = 1e5;
+const int MAXN = 1e10, MAXVAL = 1e5;
 
 void heap (int a[], int n, int b){
 	if (b) {
 		int j = 0;
 		while (j <= n/2-1){
 			int cur = a[j];
-			int child = 2 * j;
-			if (child < n - 1 && a[child] > a[child + 1]){
+			int child = 2*j;
+			if (child < n-1 && a[child] > a[child+1]){
 				child++;
 			}
 			if (cur > a[child]) {
@@ -26,12 +26,12 @@ void heap (int a[], int n, int b){
 		return;
 	}
 	int i;
-	for (i = (n - 1) / 2; i > 0; --i){
+	for (i = (n-1)/2; i > 0; --i){
 		int j = i;
 		while (2 * j + 1 < n){
 			int cur = a[j];
-			int child = 2 * j + 1;
-			if (child + 1 < n && a[child] > a[child + 1]){
+			int child = 2*j+1;
+			if (child + 1 < n && a[child] > a[child+1]){
 				child++;
 			}
 			if (cur > a[child]) {
@@ -51,16 +51,16 @@ void heapSort (int a[], int n){
 	heap(a, n, 0);
 	int i;
 	int * res = malloc(sizeof(int) * n);
-	for (i = n - 1; i >= 0; --i) {
+	for (i = n-1; i >= 0; --i) {
 		int t = a[i];
 		a[i] = a[0];
 		a[0] = t;
 		heap(a, i, 1);
 	}
-	for (i = 0; i < n / 2; ++i){
+	for (i = 0; i < n/2; ++i){
 		int t = a[i];
-		a[i] = a[n - 1 - i];
-		a[n - 1 - i] = t;
+		a[i] = a[n-1-i];
+		a[n-1-i] = t;
 	}
 	return;
 }
@@ -104,9 +104,14 @@ int main(){
 	
 	int num = 1, start_time, end_time;
 	
-	int * b = malloc(sizeof(int) * n);
-	int * a = malloc(sizeof(int) * n); 
-	int * c = malloc(sizeof(int) * n);
+	int *b = malloc(sizeof(int) * n);
+	int *a = malloc(sizeof(int) * n); 
+	int *c = malloc(sizeof(int) * n);
+	
+	if(a == 0 || b == 0 || c == 0) {
+		printf("runt out of memory.\nbye.");
+		return 0;
+	}
 	int i;
 	
 	for (i = 0; i < n; ++i){
@@ -124,7 +129,7 @@ int main(){
 	
 	end_time = clock();
 	
-	fprintf(out, "\nslowly = %f", (float)(end_time - start_time) / num);
+	fprintf(out, "\nslowly = %f", (float)(end_time - start_time)/num);
 	
 	
 	
@@ -136,7 +141,7 @@ int main(){
 	
 	end_time = clock();
 	
-	fprintf(out, "\nline = %f", (float)(end_time - start_time) / num);
+	fprintf(out, "\nline = %f", (float)(end_time - start_time)/num);
 	
 	
 	
@@ -148,7 +153,7 @@ int main(){
 	
 	end_time = clock();
 	
-	fprintf(out, "\nheap = %f", (float)(end_time - start_time) / num);
+	fprintf(out, "\nheap = %f", (float)(end_time - start_time)/num);
 
 
 	return 0;
