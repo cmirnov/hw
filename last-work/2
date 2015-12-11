@@ -1,0 +1,51 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<time.h>
+
+const int MAXN = 1e2;
+
+int comp (int *num1, int *num2){
+	int i = MAXN - 1;
+	for (i; i >= 0; --i){
+		if (num1[i]^num2[i]){
+			if (num1[i]){
+				return 1;
+			}
+			else{
+				return -1;
+			}
+		}
+	}
+	return 0;
+}
+
+int main(){
+	
+	srand(time(NULL));
+	
+	int num1[100];
+	int num2[100];
+	int i;
+	
+	for (i = 0; i < MAXN; ++i){
+		num1[i] = rand() % 2;	
+	}	
+	
+	for (i = 0; i < MAXN; ++i){
+		num2[i] = rand() % 2;	
+	}
+	
+	for (i = 0; i < MAXN; ++i){
+		printf("%d", num1[i]);	
+	}
+	printf("\n");
+	
+	for (i = 0; i < MAXN; ++i){
+		printf("%d", num2[i]);	
+	}
+	printf("\n");
+	
+	printf("%d", comp(num1, num2));
+	
+	return 0;
+}
