@@ -17,6 +17,11 @@ void set(node **a, int hash, int data){
 
 	node *t = (node*)malloc(sizeof(node));
 	
+	if (t == NULL){
+		print("run out of memory\n");
+		return;
+	}
+	
 	t->val = data;
 	
 	node *head = a[hash];
