@@ -1,35 +1,36 @@
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<time.h>
 #include<math.h>
 #include<string.h>
 
-struct list{                           
+struct list{
     int val;
-    long long hash;
+    char *hash;
     struct list *next;
 }; typedef struct list list;
 
 
-struct hash_array{                       
+struct hash_array{
     list *head;
 }; typedef struct hash_array array;
 
-struct hash_table{                       
-    int size;                            
-    array *arr;                          
-    int (*callback)(char*);              
+struct hash_table{
+    int size;
+    array *arr;
+    int (*callback)(char*);
 }; typedef struct hash_table table;
 table tbl;
 
-typedef int (*callback_param_func)(char *param); 
+typedef int (*callback_param_func)(char *param);
 
 int call_hash_func(callback_param_func func, char *param){
     return func(param);
 }
 
 void clean(list *cur){
-	list *tmp;                  
+	list *tmp;
     while (cur != NULL){
         tmp = cur;
         cur = cur->next;
@@ -38,15 +39,15 @@ void clean(list *cur){
     return;
 }
 
-list *find(char *c){                          
+list *find(char *c){
     long long Hsh = call_hash_func(tbl.callback, c);
     int pos = (Hsh % tbl.size + tbl.size) % tbl.size;
     list *cur = tbl.arr[pos].head;
     list *tmp;
     while (cur->next != NULL){
         tmp = cur->next;
-		if (tmp->hash == Hsh){
-            break;
+		if (tmp->hash == c){
+            return tmp;
         }
         cur = cur->next;
     }
@@ -54,7 +55,7 @@ list *find(char *c){
 }
 
 
-int max(int a, int b){ 
+int max(int a, int b){
    if (a > b){
         return a;
     } else {
@@ -62,7 +63,7 @@ int max(int a, int b){
     }
 }
 
-int min(int a, int b){  
+int min(int a, int b){
     if (a < b){
         return a;
     } else {
@@ -73,20 +74,28 @@ int min(int a, int b){
 
 
 
-void create(int(*func)(char*), int num){            
+void create(int(*func)(char*), int num){
     int i;
     tbl.size = num;
     tbl.arr = (array*)malloc(num * sizeof(array));
+    if (tbl.arr == NULL){
+        printf("run out of memory\n");
+        return;
+    }
     tbl.callback = func;
     for (i = 0; i < num; ++i){
         tbl.arr[i].head = malloc(sizeof(list));
+        if (tbl.arr[i].head == NULL){
+            printf("run out of memory\n");
+            return;
+        }
         (tbl.arr[i].head)->next = NULL;
         (tbl.arr[i].head)->val = 0;
     }
     return;
 }
 
-void del(){                                           
+void del(){
     int i;
     int size = tbl.size;
     for (i = 0; i < size; ++i){
@@ -96,10 +105,14 @@ void del(){
     return;
 }
 
-void add(char *c){                                      
+void add(char *c){
     list *cur = find(c);
-    if (cur->next == NULL){ 
+    if (cur->next == NULL){
         list *nw = (list*)malloc(sizeof(list));
+        if (nw == NULL){
+            printf("rum out of memory\n");
+            return;
+        }
         cur->next = nw;
         nw->next = NULL;
         nw->val = 1;
@@ -111,7 +124,7 @@ void add(char *c){
     return;
 }
 
-void erase(char *c){  
+void erase(char *c){
     list *cur = find(c);
     if (cur->next == NULL){
         printf("fail\n");
@@ -181,11 +194,11 @@ void statistic(){
 
 /////////////////////////////////////////////////////////
 
-int hash1(char *c){           
+int hash1(char *c){
     return 3;
 }
 
-int hash2(char *c){            
+int hash2(char *c){
     int sum = 0;
     while (*c){
         sum += *c;
@@ -194,11 +207,12 @@ int hash2(char *c){
     return sum;
 }
 
-int hash3(char *c){              
-    const int p = 300;            
+int hash3(char *c){
+    const int p = 300;
     long long hash = 0;
     int i;
-    for (i = 0; i < strlen(c); ++i){
+    int len = strlen(c);
+    for (i = 0; i < len; ++i){
     	hash *= p;
     	hash += c[i];
 	}
@@ -210,14 +224,18 @@ int hash3(char *c){
 int main()
 {
     double start = clock();
-    freopen("input.txt", "r", stdin);
     freopen("output.txt", "w", stdout);
+    if (freopen("input.txt", "r", stdin) == NULL){
+        printf("no input file\n");
+        return 0;
+    }
+    printf("do");
     const int size = 42*42*42;
-    create(hash3, size);
+    create(hash2, size);
     char c[100];
     while (scanf("%s", c) != EOF){
         size_t len = strlen(c) - 1;
-        while (len >= 0 && !isalpha(c[len])){ 
+        while (len >= 0 && !isalpha(c[len])){
             c[len] = '\0';
             len--;
         }
