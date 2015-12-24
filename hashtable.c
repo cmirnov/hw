@@ -1,4 +1,3 @@
-
 #include<stdio.h>
 #include<stdlib.h>
 #include<time.h>
@@ -7,7 +6,7 @@
 
 struct list{
     int val;
-    char *hash;
+    char hash[255];
     struct list *next;
 }; typedef struct list list;
 
@@ -46,8 +45,8 @@ list *find(char *c){
     list *tmp;
     while (cur->next != NULL){
         tmp = cur->next;
-		if (tmp->hash == c){
-            return tmp;
+		if (strcmp(tmp->hash, c) == 0){
+            break;
         }
         cur = cur->next;
     }
@@ -85,7 +84,7 @@ void create(int(*func)(char*), int num){
     tbl.callback = func;
     for (i = 0; i < num; ++i){
         tbl.arr[i].head = malloc(sizeof(list));
-        if (tbl.arr[i].head == NULL){
+        if(tbl.arr[i].head == NULL){
             printf("run out of memory\n");
             return;
         }
@@ -110,13 +109,13 @@ void add(char *c){
     if (cur->next == NULL){
         list *nw = (list*)malloc(sizeof(list));
         if (nw == NULL){
-            printf("rum out of memory\n");
+            printf("run out of memory\n");
             return;
         }
         cur->next = nw;
         nw->next = NULL;
         nw->val = 1;
-        nw->hash = call_hash_func(tbl.callback, c);;
+        strcpy(nw->hash, c);
     } else {
         cur = cur->next;
         cur->val++;
@@ -129,12 +128,15 @@ void erase(char *c){
     if (cur->next == NULL){
         printf("fail\n");
     } else {
-        cur = cur->next;
+        /*cur = cur->next;
         if (cur->val == 0){
             printf("fail\n");
         } else {
             cur->val--;
-        }
+        }*/
+        list *t = cur->next;
+        cur->next = t->next;
+        free(t);
     }
     return;
 }
@@ -211,8 +213,7 @@ int hash3(char *c){
     const int p = 300;
     long long hash = 0;
     int i;
-    int len = strlen(c);
-    for (i = 0; i < len; ++i){
+    for (i = 0; i < strlen(c); ++i){
     	hash *= p;
     	hash += c[i];
 	}
@@ -224,14 +225,10 @@ int hash3(char *c){
 int main()
 {
     double start = clock();
+    freopen("input.txt", "r", stdin);
     freopen("output.txt", "w", stdout);
-    if (freopen("input.txt", "r", stdin) == NULL){
-        printf("no input file\n");
-        return 0;
-    }
-    printf("do");
     const int size = 42*42*42;
-    create(hash2, size);
+    create(hash3, size);
     char c[100];
     while (scanf("%s", c) != EOF){
         size_t len = strlen(c) - 1;
