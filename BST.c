@@ -9,14 +9,15 @@ typedef struct node {
 } node;
 
 void add (node **head, int num){
-	node *t = (node*)malloc(sizeof(node));
-	t->val = num;
-	t->left = NULL;
-	t->right = NULL;
+	node *t = (node*)malloc(sizeof(node));	
 	if (t == NULL){
 		printf("run out of memory\n");
 		return;
 	}
+	t->val = num;
+	t->left = NULL;
+	t->right = NULL;
+
 	if (*head == NULL){
 		//printf("do");
 		(*head) = t;
