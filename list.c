@@ -39,6 +39,7 @@ void checkring(node **head){
 	printf("no ring\n");
 	return;
 }
+
 void add(node **head, int cur){
 	node *t = (node*)malloc(sizeof(node));
 	if (t == 0){
@@ -69,9 +70,6 @@ void add(node **head, int cur){
 	return;
 }
 
-
-
-
 void rem(node **head, int num){
 	node *t = (*head);
 	if	(*head == NULL){
@@ -99,8 +97,6 @@ void rem(node **head, int num){
 	return;
 }
 
-
-
 void print(node **head) {
 
 	if (*head == NULL){
@@ -123,7 +119,6 @@ void print(node **head) {
 	return;
 }
 
-
 void clear(node **head){
 	node *t = *head;
 	while(*head != NULL){
@@ -133,7 +128,6 @@ void clear(node **head){
 	}
 	return;
 }
-
 
 int main(){
 	node * head;
