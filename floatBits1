@@ -1,0 +1,40 @@
+#include<stdio.h>
+#include<math.h>
+
+union bits {
+	float f;
+	long long n;
+};
+
+int main(){
+	
+	union bits a, b;
+	
+	scanf("%f%f", &a.f, &b.f);
+
+	if (b.f == -1){
+		a.f = sqrt(a.f);
+	}
+	else{
+		a.f = a.f / b.f;
+	}
+	
+	
+	int sign = (a.n >>31) & 1; 
+	int exp = (a.n >> 23) & 0xFF;
+	int man = (a.n  & 0X7FFFFF);
+	
+	if (exp == 0XFF){
+		if (man == 0){
+			printf(sign ? "-inf\n" : "+inf\n");
+		}
+		else{
+			printf("NaN\n");
+		}
+		return 0;
+	}
+	
+	printf("float = (-1)^%d * 1.%d * 2^(%d)", sign, man, (exp - 127));
+	
+	return 0;
+}
